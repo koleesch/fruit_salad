@@ -8,7 +8,7 @@ use rand::seq::SliceRandom; // rand is a random number generator library for Rus
 use rand::thread_rng; // thread_rng is a random number generator that is local to the current thread of execution
 
 fn main() {
-    let mut fruit = vec![
+    let mut fruits = vec![
         "Orange",
         "Fig",
         "Pomegranate",
@@ -18,14 +18,27 @@ fn main() {
         "Peach",
     ];
 
-    let mut rng = thread_rng(); // create a random number generator
-    fruit.shuffle(&mut rng); // shuffle the fruit vector
+    // Scramble (shuffle) the fruit
+    let mut rng = thread_rng();
+    fruits.shuffle(&mut rng);
+
+    // Print out the fruit salad
     println!("Fruit Salad:");
-    for (i, item) in fruit.iter().enumerate() {
-        if i != fruit.len() - 1 {
+    for (i, item) in fruits.iter().enumerate() {
+        if i != fruits.len() - 1 {
             print!("{}, ", item);
         } else {
             println!("{}", item);
         }
     }
+
+    // add fruit from user to fruit salad
+    let mut user_fruit = String::new();
+    println!("Enter a fruit to add to the fruit salad:");
+    std::io::stdin().read_line(&mut user_fruit).unwrap();
+    fruits.push(user_fruit.trim());
+
+    // shuffle fruit from salad
+    let fruit = fruits.choose(&mut rng).unwrap();
+    println!("A shuffled fruit from salad: {}", fruit)
 }
